@@ -1,3 +1,6 @@
+# for Glitch
+go.sum
+
 # for Go
 # Binaries for programs and plugins
 *.exe
