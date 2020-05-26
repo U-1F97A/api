@@ -1,20 +1,19 @@
 {
-  "name": "api-go",
+  "name": "u-1f97a",
   "version": "1.0.0",
-  "description": "for U+1F97A",
+  "description": "API側、Go、Glitch上で動作予定",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "go build server.go && ./server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/U-1F97A/api-go-onGlitch.git"
   },
-  "author": "terfno",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/U-1F97A/api-go-onGlitch/issues"
   },
-  "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme",
-  "dependencies": {}
+  "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme"
 }
