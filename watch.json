@@ -1,0 +1,6 @@
+{
+  "restart": {
+    "include": ["^server.go$"]
+  },
+  "throttle": 100
+}
