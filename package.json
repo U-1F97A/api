@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/U-1F97A/api-go-onGlitch/issues"
   },
-  "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme"
+  "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme",
+  "dependencies": {
+    "sync-glitch-cli": "^2.0.1"
+  }
 }
