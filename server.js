@@ -5,6 +5,7 @@ const router = require("./api/");
 
 const app = express();
 
+app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 app.use("/", router);
 
