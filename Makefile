@@ -6,3 +6,6 @@ init:
 
 node:
 	@docker run -it --rm -v ${PWD}:/node -w /node --name ${CNAME} -p 8080:3000 ${INAME} sh
+
+exec:
+	@docker exec -it ${CNAME} sh
