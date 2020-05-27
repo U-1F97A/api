@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 
-app.get("/", function (req, res) {
-  res.json({ message: "Hello World" });
-});
+const router = require("./api/");
+app.use("/", router);
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log("listen on " + port);
