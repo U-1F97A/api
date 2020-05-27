@@ -1,7 +1,11 @@
 const express = require("express");
-const app = express();
+const parser = require("body-parser");
 
 const router = require("./api/");
+
+const app = express();
+
+app.use(parser.urlencoded({ extended: true }));
 app.use("/", router);
 
 var port = process.env.PORT || 3000;
