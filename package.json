@@ -4,7 +4,7 @@
   "description": "API側、Node.js、Express、Glitch上で動作予定",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/U-1F97A/api-go-onGlitch/issues"
   },
-  "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme"
+  "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
