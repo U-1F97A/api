@@ -9,3 +9,6 @@ node:
 
 exec:
 	@docker exec -it ${CNAME} sh
+
+build:
+	@docker build -t ${CNAME} .
