@@ -6,5 +6,6 @@ handler.get("/", (req, res) => {
 });
 
 handler.use("/book", require("./book.js"));
+handler.use("/isbn", require("./isbn.js"));
 
 module.exports = handler;
