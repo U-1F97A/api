@@ -15,7 +15,7 @@ handler.post("/", (req, res) => {
   });
 });
 
-function getbookapi(booktitle) {
+exports.getBookInfoWithTitle = (booktitle) => {
   return new Promise((resolve) => {
     request.get(
       {
@@ -29,6 +29,6 @@ function getbookapi(booktitle) {
       }
     );
   });
-}
+};
 
 module.exports = handler;
