@@ -1,8 +1,7 @@
 const express = require("express");
-const request = require("request");
+const gba = require("../domain/gba.js");
 
 const handler = express.Router();
-const GBA_URL = "https://www.googleapis.com/books/v1/volumes";
 
 handler.get("/", (req, res) => {
   res.status(200).json({
@@ -12,7 +11,7 @@ handler.get("/", (req, res) => {
 
 handler.post("/", (req, res) => {
   var isbn = req.body.isbn;
-  getbookapi(isbn).then((data) => {
+  gba.getBookInfoWithIsbn(isbn).then((data) => {
     res.status(200).json({
       title: data.items[0].volumeInfo.title,
       pageCount: data.items[0].volumeInfo.pageCount,
@@ -20,21 +19,5 @@ handler.post("/", (req, res) => {
     });
   });
 });
-
-function getbookapi(isbn) {
-  return new Promise((resolve) => {
-    request.get(
-      {
-        uri: GBA_URL,
-        qs: {
-          q: isbn,
-        },
-      },
-      (err, req, data) => {
-        resolve(JSON.parse(data));
-      }
-    );
-  });
-}
 
 module.exports = handler;
