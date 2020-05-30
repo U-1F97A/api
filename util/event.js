@@ -1,4 +1,5 @@
 const ics = require("ics");
+const fs = require("fs");
 
 createDescription = (bookTitle, startPage, lastPage) => {
   return new Promise((resolve) => {
@@ -120,5 +121,22 @@ exports.createEvents = (title, days, descriptions, starts, duration) => {
     Promise.all(promiseArray).then((events) => {
       resolve(events);
     });
+  });
+};
+
+exports.genICSfile = (events, icspath) => {
+  return new Promise((resolve, reject) => {
+    const { err, value } = ics.createEvents(events);
+    if (err) {
+      reject(err);
+    } else {
+      fs.writeFile(icspath, value, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    }
   });
 };
