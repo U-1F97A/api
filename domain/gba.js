@@ -3,7 +3,7 @@ const request = require("request");
 const GBA_URL = "https://www.googleapis.com/books/v1/volumes";
 
 exports.getBookInfoWithTitle = (booktitle) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     request.get(
       {
         uri: GBA_URL,
@@ -12,6 +12,7 @@ exports.getBookInfoWithTitle = (booktitle) => {
         },
       },
       (err, req, data) => {
+        if (err) reject(JSON.parse(data));
         resolve(JSON.parse(data));
       }
     );
@@ -19,7 +20,7 @@ exports.getBookInfoWithTitle = (booktitle) => {
 };
 
 exports.getBookInfoWithIsbn = (isbn) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     request.get(
       {
         uri: GBA_URL,
@@ -28,6 +29,7 @@ exports.getBookInfoWithIsbn = (isbn) => {
         },
       },
       (err, req, data) => {
+        if (err) reject(JSON.parse(data));
         resolve(JSON.parse(data));
       }
     );
