@@ -21,7 +21,7 @@ handler.post("/", (req, res) => {
   });
 });
 
-exports.getBookInfoWithISBN = (isbn) => {
+function getbookapi(isbn) {
   return new Promise((resolve) => {
     request.get(
       {
@@ -35,6 +35,6 @@ exports.getBookInfoWithISBN = (isbn) => {
       }
     );
   });
-};
+}
 
 module.exports = handler;
