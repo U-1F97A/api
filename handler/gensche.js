@@ -32,24 +32,21 @@ handler.post("/", (req, res) => {
     picture: "url",
   };
 
+  var startDate;
   var minPer1Page = "1";
   var pagePerDay = "1";
   var duration = "1";
 
   gba
     .getBookInfoWithTitle(karte.bookTitle)
-    .then((data) => {
-      bookInfo.title = data.items[0].volumeInfo.title;
-      bookInfo.pageCount = data.items[0].volumeInfo.pageCount;
-      bookInfo.picture = data.items[0].volumeInfo.imageLinks.thumbnail;
-      console.log("## book info");
-      console.log(bookInfo);
+    .then((result) => {
+      bookInfo.title = result.items[0].volumeInfo.title;
+      bookInfo.pageCount = result.items[0].volumeInfo.pageCount;
+      bookInfo.picture = result.items[0].volumeInfo.imageLinks.thumbnail;
 
       cal
         .getHowManyDaysToRead(bookInfo.pageCount, pagePerDay)
         .then((result) => {
-          console.log("## duration");
-          console.log(result + " days");
           duration = result;
         });
     })
@@ -66,20 +63,15 @@ handler.post("/", (req, res) => {
       karte.goodAt
     )
     .then((result) => {
-      console.log("## min / 1page");
-      console.log(result);
       minPer1Page = result;
     });
 
   cal.getPagePerDay(karte.maxPerDay, minPer1Page).then((result) => {
-    console.log("## page / day");
-    console.log(result);
     pagePerDay = result;
   });
 
-  cal.getStartDate(karte.timeFrom).then((now) => {
-    console.log("## start day");
-    console.log(now);
+  cal.getStartDate(karte.timeFrom).then((result) => {
+    startDate = result;
   });
 
   res.status(200).end();
