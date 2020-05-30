@@ -1,6 +1,8 @@
 const express = require("express");
 const parser = require("body-parser");
 
+require("dotenv").config();
+
 const handler = require("./handler");
 
 const app = express();
