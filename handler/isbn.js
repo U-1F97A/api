@@ -1,5 +1,5 @@
 const express = require("express");
-const gba = require("../domain/gba.js");
+const gba = require("../util/gba.js");
 
 const handler = express.Router();
 
