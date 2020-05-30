@@ -65,3 +65,40 @@ exports.createDescriptions = (bookTitle, pageCount, pagesPerDay, days) => {
     });
   });
 };
+
+createStart = (Year, Month, Date, Hour, Minute) => {
+  return new Promise((resolve) => {
+    start = [Year, Month, Date, Hour, Minute];
+    resolve(start);
+  });
+};
+
+exports.createStarts = (Year, Month, Date, Hour, Minute, days) => {
+  return new Promise((resolve) => {
+    promiseArray = [];
+
+    for (let i = 0; i < days; i++) {
+      promiseArray.push(createStart(Year, Month, Date, Hour, Minute));
+
+      Date += 1;
+      if (Month == 12 && Date == 31) {
+        Year += 1;
+        Month = 1;
+        Date = 1;
+      } else if (
+        (Year % 4 == 0 && Month == 2 && Date == 30) ||
+        (Month == 2 && Date == 29) ||
+        ((Month == 4 || Month == 6 || Month == 9 || Month == 11) &&
+          Date == 31) ||
+        Date == 32
+      ) {
+        Month += 1;
+        Date = 1;
+      }
+    }
+
+    Promise.all(promiseArray).then((starts) => {
+      resolve(starts);
+    });
+  });
+};

@@ -76,13 +76,29 @@ handler.post("/", async (req, res) => {
     startDate = result;
   });
 
+  eventTitle = bookInfo.title;
   descriptions = [];
+  starts = [];
 
   await eve
     .createDescriptions(bookInfo.title, bookInfo.pageCount, pagesPerDay, days)
     .then((result) => {
       descriptions = result;
       console.log(descriptions);
+    });
+
+  await eve
+    .createStarts(
+      startDate.getFullYear(),
+      startDate.getMonth() + 1,
+      startDate.getDate(),
+      parseInt(karte.timeFrom[0]),
+      parseInt(karte.timeFrom[1]),
+      days
+    )
+    .then((result) => {
+      starts = result;
+      console.log(result);
     });
 
   res.status(200).end();
