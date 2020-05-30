@@ -32,7 +32,7 @@ handler.post("/", (req, res) => {
     picture: "url",
   };
 
-  var startDate;
+  var startDate = new Date();
   var minPer1Page = "1";
   var pagePerDay = "1";
   var duration = "1";
