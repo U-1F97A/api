@@ -14,7 +14,7 @@ exports.getStartDate = (timeFrom) => {
   });
 };
 
-exports.getHowManyMinToRead1Page = (defmin, base, level, habit, goodAt) => {
+exports.getMinutesPerPage = (defmin, base, level, habit, goodAt) => {
   return new Promise((resolve) => {
     diff = 1;
     switch (base - level) {

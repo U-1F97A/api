@@ -16,7 +16,7 @@ const handler = express.Router();
 //   "maxPerDay": "n(integer)"
 // }
 
-handler.post("/", (req, res) => {
+handler.post("/", async (req, res) => {
   var karte = {
     bookTitle: req.body.bookTitle,
     purpose: req.body.purpose,
@@ -34,46 +34,51 @@ handler.post("/", (req, res) => {
   };
 
   var startDate = new Date();
-  var minPer1Page = "1";
-  var pagePerDay = "1";
+  var minutesPerPage = "1";
+  var pagesPerDay = "1";
   var days = "1";
 
-  gba
+  await gba
     .getBookInfoWithTitle(karte.bookTitle)
     .then((result) => {
       bookInfo.title = result.items[0].volumeInfo.title;
       bookInfo.pageCount = result.items[0].volumeInfo.pageCount;
       bookInfo.picture = result.items[0].volumeInfo.imageLinks.thumbnail;
-
-      cal
-        .getHowManyDaysToRead(bookInfo.pageCount, pagePerDay)
-        .then((result) => {
-          days = result;
-        });
     })
     .catch((data) => {
       res.status(500);
     });
 
-  cal
-    .getHowManyMinToRead1Page(
-      minPer1Page,
+  await cal
+    .getMinutesPerPage(
+      minutesPerPage,
       karte.base,
       karte.level,
       karte.habit,
       karte.goodAt
     )
     .then((result) => {
-      minPer1Page = result;
+      minutesPerPage = result;
     });
 
-  cal.getPagePerDay(karte.maxPerDay, minPer1Page).then((result) => {
-    pagePerDay = result;
+  await cal.getPagePerDay(karte.maxPerDay, minutesPerPage).then((result) => {
+    pagesPerDay = result;
   });
 
-  cal.getStartDate(karte.timeFrom).then((result) => {
+  await cal
+    .getHowManyDaysToRead(bookInfo.pageCount, pagesPerDay)
+    .then((result) => {
+      days = result;
+    });
+
+  await cal.getStartDate(karte.timeFrom).then((result) => {
     startDate = result;
   });
+
+  console.log(bookInfo);
+  console.log(startDate);
+  console.log(days);
+  console.log(pagesPerDay);
 
   res.status(200).end();
 });
