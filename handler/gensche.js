@@ -26,6 +26,24 @@ handler.post("/", (req, res) => {
     maxPerDay: req.body.maxPerDay,
   };
 
+  var bookInfo = {
+    title: "",
+    pageCount: -1,
+    picture: "url",
+  };
+
+  cal
+    .getHowManyMinToRead1Page(
+      1,
+      karte.base,
+      karte.level,
+      karte.habit,
+      karte.goodAt
+    )
+    .then((minPer1Page) => {
+      console.log(minPer1Page);
+    });
+
   cal.getStartDate(karte.timeFrom).then((now) => {
     console.log(now);
   });
@@ -33,12 +51,15 @@ handler.post("/", (req, res) => {
   gba
     .getBookInfoWithTitle(karte.bookTitle)
     .then((data) => {
-      res.status(200).end();
+      bookInfo.title = data.items[0].volumeInfo.title;
+      bookInfo.pageCount = data.items[0].volumeInfo.pageCount;
+      bookInfo.picture = data.items[0].volumeInfo.imageLinks.thumbnail;
     })
     .catch((data) => {
-      console.log("catch");
       res.status(500);
     });
+
+  res.status(200).end();
 });
 
 module.exports = handler;
