@@ -2,6 +2,7 @@ const express = require("express");
 const gba = require("../util/gba.js");
 const cal = require("../util/cal.js");
 const eve = require("../util/event.js");
+const s3u = require("../util/s3-upload.js");
 
 const handler = express.Router();
 
@@ -80,6 +81,9 @@ handler.post("/", async (req, res) => {
   descriptions = [];
   starts = [];
   events = [];
+  icspath = "./temp/file.ics";
+  filename =
+    days.toString() + "days" + karte.bookTitle.replace(" ", "-") + ".ics";
 
   await eve
     .createDescriptions(bookInfo.title, bookInfo.pageCount, pagesPerDay, days)
@@ -106,7 +110,32 @@ handler.post("/", async (req, res) => {
       events = result;
     });
 
-  res.status(200).end();
+  await eve.genICSfile(events, icspath).catch((err) => {
+    console.log(err)
+    res.status(500).json(err);
+  });
+
+  await s3u
+    .upload(filename, icspath)
+    .then(() => {
+      res.status(200).json({
+        s3URL: "https://u-1f97a-api.glitch.me/download?name=" + filename,
+        comment:
+          "問診の結果から、あなたは毎日" +
+          karte.maxPerDay.toString() +
+          "分の時間を確保し、その時間に" +
+          pagesPerDay.toString() +
+          "ページ読むことができると推測しました。この本は" +
+          bookInfo.pageCount.toString() +
+          "ページあるので、" +
+          days.toString() +
+          "日で読み終わる計算です。このスケジュールを記述した .ics ファイルを作成しました。ぜひご活用ください。",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500);
+    });
 });
 
 module.exports = handler;
