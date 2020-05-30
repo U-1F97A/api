@@ -3,12 +3,6 @@ const gba = require("../util/gba.js");
 
 const handler = express.Router();
 
-handler.get("/", (req, res) => {
-  res.status(200).json({
-    message: "hoge",
-  });
-});
-
 handler.post("/", (req, res) => {
   var isbn = req.body.isbn;
   gba
