@@ -49,3 +49,15 @@ exports.getHowManyMinToRead1Page = (defmin, base, level, habit, goodAt) => {
     resolve(defmin * (diff + power));
   });
 };
+
+exports.getPagePerDay = (minutesPerDay, minutesPerPage) => {
+  return new Promise((resolve) => {
+    resolve(Math.ceil(minutesPerDay / minutesPerPage));
+  });
+};
+
+exports.getHowManyDaysToRead = (pageCount, pagePerDay) => {
+  return new Promise((resolve) => {
+    resolve(Math.ceil(pageCount / pagePerDay));
+  });
+};
