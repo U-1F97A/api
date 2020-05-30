@@ -1,7 +1,6 @@
 exports.getStartDate = (timeFrom) => {
   return new Promise((resolve) => {
     var now = new Date();
-    now.setTime(now.getTime() - 9 * 60 * 60 * 1000); // JST
 
     var FromHH = Number(timeFrom[0]);
 

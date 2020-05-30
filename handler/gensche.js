@@ -29,6 +29,11 @@ handler.post("/", async (req, res) => {
     maxPerDay: req.body.maxPerDay,
   };
 
+  karte.timeFrom = [
+    parseInt(karte.timeFrom[0]) - 9,
+    parseInt(karte.timeFrom[1]),
+  ];
+
   var bookInfo = {
     title: "",
     pageCount: -1,
@@ -39,6 +44,14 @@ handler.post("/", async (req, res) => {
   var minutesPerPage = "1";
   var pagesPerDay = "1";
   var days = "1";
+
+  var eventTitle = bookInfo.title;
+  var descriptions = [];
+  var starts = [];
+  var events = [];
+  var icspath = "./temp/file.ics";
+  var filename =
+    days.toString() + "days" + karte.bookTitle.replace(" ", "-") + ".ics";
 
   await gba
     .getBookInfoWithTitle(karte.bookTitle)
@@ -77,14 +90,6 @@ handler.post("/", async (req, res) => {
     startDate = result;
   });
 
-  eventTitle = bookInfo.title;
-  descriptions = [];
-  starts = [];
-  events = [];
-  icspath = "./temp/file.ics";
-  filename =
-    days.toString() + "days" + karte.bookTitle.replace(" ", "-") + ".ics";
-
   await eve
     .createDescriptions(bookInfo.title, bookInfo.pageCount, pagesPerDay, days)
     .then((result) => {
@@ -111,7 +116,7 @@ handler.post("/", async (req, res) => {
     });
 
   await eve.genICSfile(events, icspath).catch((err) => {
-    console.log(err)
+    console.log(err);
     res.status(500).json(err);
   });
 
