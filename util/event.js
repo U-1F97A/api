@@ -1,35 +1,5 @@
 const ics = require("ics");
 
-exports.EventStruct = (title, description, start, duration) => {
-  this.title;
-  this.description;
-  this.start;
-  this.duration;
-};
-
-exports.structToJSON = (struct) => {
-  return new Promise((resolve) => {
-    minutes = struct.duration;
-    var hour, min;
-    if (minutes >= 60) {
-      hour = Math.floor(minutes / 60);
-      min = minutes % 60;
-    }
-
-    const e = {
-      title: struct.title,
-      description: struct.description,
-      start: struct.start,
-      duration: {
-        hour: hour,
-        min: min,
-      },
-    };
-
-    return e;
-  });
-};
-
 createDescription = (bookTitle, startPage, lastPage) => {
   return new Promise((resolve) => {
     description =
@@ -99,6 +69,56 @@ exports.createStarts = (Year, Month, Date, Hour, Minute, days) => {
 
     Promise.all(promiseArray).then((starts) => {
       resolve(starts);
+    });
+  });
+};
+
+createEvent = (title, description, start, duration) => {
+  return new Promise((resolve) => {
+    minutes = duration;
+    var hour, min;
+    if (minutes >= 60) {
+      hour = Math.floor(minutes / 60);
+      min = minutes % 60;
+      resolve(
+        (e = {
+          title: title,
+          description: description,
+          start: start,
+          duration: {
+            hours: hour,
+            minutes: min,
+          },
+        })
+      );
+    } else {
+      min = duration;
+      resolve(
+        (e = {
+          title: title,
+          description: description,
+          start: start,
+          duration: {
+            minutes: min,
+          },
+        })
+      );
+    }
+  });
+};
+
+exports.createEvents = (title, days, descriptions, starts, duration) => {
+  return new Promise((resolve) => {
+    promiseArray = [];
+
+    for (let i = 0; i < days; i++) {
+      promiseArray.push(
+        createEvent(title, descriptions[i], starts[i], duration)
+      );
+    }
+
+    Promise.all(promiseArray).then((events) => {
+      resolve(events);
     });
   });
 };

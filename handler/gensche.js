@@ -79,12 +79,12 @@ handler.post("/", async (req, res) => {
   eventTitle = bookInfo.title;
   descriptions = [];
   starts = [];
+  events = [];
 
   await eve
     .createDescriptions(bookInfo.title, bookInfo.pageCount, pagesPerDay, days)
     .then((result) => {
       descriptions = result;
-      console.log(descriptions);
     });
 
   await eve
@@ -98,7 +98,12 @@ handler.post("/", async (req, res) => {
     )
     .then((result) => {
       starts = result;
-      console.log(result);
+    });
+
+  await eve
+    .createEvents(eventTitle, days, descriptions, starts, karte.maxPerDay)
+    .then((result) => {
+      events = result;
     });
 
   res.status(200).end();
