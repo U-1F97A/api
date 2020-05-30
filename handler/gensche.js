@@ -59,6 +59,7 @@ handler.post("/", async (req, res) => {
       bookInfo.title = result.items[0].volumeInfo.title;
       bookInfo.pageCount = result.items[0].volumeInfo.pageCount;
       bookInfo.picture = result.items[0].volumeInfo.imageLinks.thumbnail;
+      eventTitle = bookInfo.title;
     })
     .catch((data) => {
       res.status(500);
