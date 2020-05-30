@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "find-config": "^1.0.0",
+    "ics": "^2.19.0",
     "request": "^2.88.2"
   }
 }
