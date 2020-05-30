@@ -1,11 +1,11 @@
-const downloadService = require("../util/s3-download.js");
+const s3d = require("../util/s3-download.js");
 
 function download(req, res) {
-  const { filename } = req.query;
+  const filename = req.query.name;
 
   res.attachment(filename);
 
-  downloadService(filename)
+  s3d.download(filename)
     .on("error", (err) => {
       res.status(500).send({ error: err });
     })
