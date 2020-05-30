@@ -1,6 +1,7 @@
 const express = require("express");
 const gba = require("../util/gba.js");
 const cal = require("../util/cal.js");
+const eve = require("../util/event.js");
 
 const handler = express.Router();
 
@@ -75,10 +76,14 @@ handler.post("/", async (req, res) => {
     startDate = result;
   });
 
-  console.log(bookInfo);
-  console.log(startDate);
-  console.log(days);
-  console.log(pagesPerDay);
+  descriptions = [];
+
+  await eve
+    .createDescriptions(bookInfo.title, bookInfo.pageCount, pagesPerDay, days)
+    .then((result) => {
+      descriptions = result;
+      console.log(descriptions);
+    });
 
   res.status(200).end();
 });
