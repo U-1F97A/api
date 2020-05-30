@@ -1,9 +1,7 @@
 exports.getStartDate = (timeFrom) => {
   return new Promise((resolve) => {
     var now = new Date();
-    now.setTime(now.getTime() + 9 * 60 * 60 * 1000); // JST
-
-    FromHH = Number(timeFrom[0]);
+    var FromHH = Number(timeFrom[0]);
 
     if (now.getHours() < FromHH) {
       resolve(now); // from today
@@ -16,7 +14,7 @@ exports.getStartDate = (timeFrom) => {
 
 exports.getMinutesPerPage = (defmin, base, level, habit, goodAt) => {
   return new Promise((resolve) => {
-    diff = 1;
+    var diff = 1;
     switch (base - level) {
       case -2 || -1:
         diff = 0.2;
@@ -31,7 +29,7 @@ exports.getMinutesPerPage = (defmin, base, level, habit, goodAt) => {
         diff = 0.45;
         break;
     }
-    power = 1;
+    var power = 1;
     switch (habit * goodAt) {
       case 0:
         power = 0.3;
