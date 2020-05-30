@@ -4,6 +4,7 @@ const cal = require("../util/cal.js");
 
 const handler = express.Router();
 
+// bodyにあるJSON
 // {
 //   "bookTitle": "本のタイトル(string)",
 //   "purpose": "目的とか(string)",
@@ -35,7 +36,7 @@ handler.post("/", (req, res) => {
   var startDate = new Date();
   var minPer1Page = "1";
   var pagePerDay = "1";
-  var duration = "1";
+  var days = "1";
 
   gba
     .getBookInfoWithTitle(karte.bookTitle)
@@ -47,7 +48,7 @@ handler.post("/", (req, res) => {
       cal
         .getHowManyDaysToRead(bookInfo.pageCount, pagePerDay)
         .then((result) => {
-          duration = result;
+          days = result;
         });
     })
     .catch((data) => {
