@@ -26,8 +26,9 @@ handler.post("/", (req, res) => {
     maxPerDay: req.body.maxPerDay,
   };
 
-  startDate = cal.getStartDate(karte.timeFrom);
-  console.log(startDate);
+  cal.getStartDate(karte.timeFrom).then((now) => {
+    console.log(now);
+  });
 
   gba
     .getBookInfoWithTitle(karte.bookTitle)
