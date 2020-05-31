@@ -23,6 +23,7 @@
     "find-config": "^1.0.0",
     "fs": "0.0.1-security",
     "ics": "^2.19.0",
+    "morgan": "^1.10.0",
     "request": "^2.88.2"
   }
 }
