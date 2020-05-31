@@ -19,6 +19,8 @@ const handler = express.Router();
 // }
 
 handler.post("/", async (req, res) => {
+  console.log(req.body);
+
   var karte = {
     bookTitle: req.body.bookTitle,
     purpose: req.body.purpose,

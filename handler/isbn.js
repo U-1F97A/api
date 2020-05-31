@@ -4,6 +4,8 @@ const gba = require("../util/gba.js");
 const handler = express.Router();
 
 handler.post("/", (req, res) => {
+  console.log(req.body);
+
   var isbn = req.body.isbn;
   gba
     .getBookInfoWithIsbn(isbn)
