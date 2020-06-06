@@ -22,7 +22,7 @@ handler.post("/", async (req, res) => {
   console.log(req.body);
 
   var karte = {
-    bookTitle: req.body.bookTitle,
+    bookTitle: req.body.booktitle,
     purpose: req.body.purpose,
     base: req.body.base,
     level: req.body.level,
