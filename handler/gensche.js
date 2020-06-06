@@ -6,18 +6,6 @@ const s3u = require("../util/s3-upload.js");
 
 const handler = express.Router();
 
-// bodyにあるJSON
-// {
-//   "bookTitle": "本のタイトル(string)",
-//   "purpose": "目的とか(string)",
-//   "base": "ない:0, 多少ある:1, ある:2(integer)",
-//   "level": "0からの入門:0, 入門:1, 応用:2(integer)",
-//   "habit": "読まない:0, たまに読む:1, 読む:1(integer)",
-//   "goodAt": "苦手:0, 苦手ではない:1, 得意:2",
-//   "timeFrom": "HH:MM(string)",
-//   "maxPerDay": "n(integer)"
-// }
-
 handler.post("/", async (req, res) => {
   console.log(req.body);
 
@@ -129,7 +117,13 @@ handler.post("/", async (req, res) => {
       res.status(200).json({
         s3URL: "https://u-1f97a-api.glitch.me/download?name=" + filename,
         comment:
-          "問診の結果から、あなたは毎日" +
+          "今日からあなたは" +
+          karte.bookTitle +
+          "を読みます。" +
+          "目的は「" +
+          karte.purpose +
+          "」です。" +
+          "また、問診の結果からあなたは毎日" +
           karte.maxPerDay.toString() +
           "分の時間を確保し、その時間に" +
           pagesPerDay.toString() +
