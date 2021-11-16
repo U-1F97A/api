@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/U-1F97A/api-go-onGlitch#readme",
   "dependencies": {
-    "aws-sdk": "^2.686.0",
+    "aws-sdk": "^2.814.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "find-config": "^1.0.0",
